@@ -52,11 +52,13 @@ def sidebar():
             In.jet_fan = st.selectbox('✨ :green[제트팬 규격 [mm] : 일반형]', ('⭕ 𝜙1030 (JF-1000)', '⭕ 𝜙1280 (JF-1250)', '⭕ 𝜙1530 (JF-1500)'), index = 1)
 
         st.markdown('#### **✴️ :orange[단면 결정]**')
-        col = st.columns(2)
+        col = st.columns(3)
         with col[0]:
             In.center_height = st.number_input('✨ :green[중심 높이 [m]]', value=0.2, step=0.1, format='%0.1f')
         with col[1]:
             In.tunnel_radius = st.number_input('✨ :green[터널 반경 [m]]', value=6.8, step=0.1, format='%0.1f')
+        with col[2]:
+            In.tunnel_angle = st.number_input('✨ :green[터널 중심 각도 [°]]', value=120., step=10., format='%0.0f')
 
         st.markdown('#### **✴️ :orange[터널 연장]**')
         In.tunnel_length = st.radio('✨ :green[터널 연장 [m]]', ('1,000m 미만', '1,000~3,000m', '3,000m 이상'), index=1, horizontal=True, label_visibility='collapsed')

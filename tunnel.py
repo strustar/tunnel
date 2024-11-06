@@ -218,8 +218,8 @@ x_center, y_center = total_width/2, In.center_height  # 기준점 좌표
 line_length = 10  # 직선의 길이
 
 # 각도 설정 (라디안으로 변환)
-angle_left = np.radians(30)    # 120도
-angle_right = np.radians(150)  # -120도
+angle_left = np.radians(90 - In.tunnel_angle/2)    # 30도
+angle_right = np.radians(90 + In.tunnel_angle/2)  # 150도
 
 # 좌측 직선 끝점 좌표 계산
 x_left = x_center + line_length * np.cos(angle_left)
@@ -260,8 +260,8 @@ import streamlit as st
 # 중심점, 반지름, 시작 각도 및 끝 각도 설정
 cx, cy = x_center, y_center     # 중심 좌표
 radius = In.tunnel_radius        # 반지름
-start_angle = 30*np.pi/180   # 시작 각도 (라디안으로, 0은 오른쪽 방향)
-end_angle = 150*np.pi/180  # 끝 각도 (라디안으로, 90도는 위쪽 방향)
+start_angle = (90 - In.tunnel_angle/2)*np.pi/180   # 시작 각도 (라디안으로, 0은 오른쪽 방향)
+end_angle = (90 + In.tunnel_angle/2)*np.pi/180  # 끝 각도 (라디안으로, 90도는 위쪽 방향)
 
 # 아크의 좌표 계산 함수
 def calculate_arc(cx, cy, radius, start_angle, end_angle, num_points=100):
@@ -385,8 +385,8 @@ for iter in range(2):
     r = In.tunnel_radius         # 반지름 5
 
     # 직선의 기울기와 y절편
-    angle = 150
-    if iter == 1:  angle = 30
+    angle = 90 + In.tunnel_angle/2
+    if iter == 1:  angle = 90 - In.tunnel_angle/2
     a = np.tan(np.radians(angle))        # 직선의 기울기
     b = -a*cx + cy         # y절편
 
