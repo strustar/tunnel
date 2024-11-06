@@ -46,7 +46,7 @@ with col[2]:
 with col[3]:
     check_superelevation = st.checkbox('편경사 모두 표시', value=True)
 with col[4]:
-    check_tunnel_circle = st.checkbox('터널 점선원 표시', value=True)
+    check_tunnel_circle = st.checkbox('터널 점선원 표시', value=False)
 
 family = 'sans-serif, Arial, Nanumgothic, Georgia'
 def shape(fig, typ, x0,y0,x1,y1, fillcolor, color, width, **kargs):
@@ -485,9 +485,16 @@ for iter in range(2):
     if angle2 < 0:
         angle2 += 2 * np.pi
 
-    # 아크 각도 계산 (시계 방향 아크를 생성)
-    if iter == 1:  angle2 -= 2*np.pi
-    theta = np.linspace(angle1, angle2, 300)
+    # 작은 아크를 그리기 위해 두 각도 차이를 구함
+    angle_diff = abs(angle2 - angle1)
+
+    # 짧은 아크 선택
+    if angle_diff > np.pi:
+        # 큰 아크를 피하기 위해 angle2를 2π 추가하여 작은 경로로 설정
+        theta = np.linspace(angle2, angle1 + 2 * np.pi, 100)
+    else:
+        # 작은 아크는 angle1에서 angle2까지로 설정
+        theta = np.linspace(angle1, angle2, 100)
 
     # 원의 x, y 좌표 계산 (아크)
     x_arc = h + r * np.cos(theta)
